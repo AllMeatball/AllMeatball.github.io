@@ -24,8 +24,8 @@ for fmt in sorted(FONT_SAVERS.get_formats()):
 frontend.start_app(EXPORT_FORMATS)
 
 @when("change", "#font-file")
-async def font_preview(event):
-    font_preview.hidden = True
+async def update_font_preview(event):
+    frontend.font_preview.hidden = True
 
     files = event.target.files
     file = files.item(0)
