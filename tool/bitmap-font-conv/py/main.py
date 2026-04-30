@@ -1,5 +1,3 @@
-import frontend
-
 import os
 import re
 import tempfile
@@ -12,6 +10,7 @@ from load_libs import load_monobit
 
 await load_monobit()
 import monobit
+import frontend
 
 FONT_SAVERS = monobit.storage.savers
 
@@ -23,6 +22,23 @@ for fmt in sorted(FONT_SAVERS.get_formats()):
     EXPORT_FORMATS[fmt] = f"{fmt} ({file_ext})"
 
 frontend.start_app(EXPORT_FORMATS)
+
+@when("change", "#font-file")
+async def font_preview(event):
+    font_preview.hidden = True
+
+    files = event.target.files
+    file = files.item(0)
+
+    data: bytes = await frontend.get_file_data(file)
+
+    try:
+        reader = BufferedReader(BytesIO(data))
+        font = monobit.load(reader)
+        frontend.render_preview(monobit, font)
+    except Exception as e:
+        window.alert(f"Font preview failed: {e}")
+        return
 
 @when("click", "#font-convert-button")
 async def start_conversion(event):
@@ -46,6 +62,11 @@ async def start_conversion(event):
     except Exception as e:
         window.alert(f"Failed to load font: {e}")
         return
+
+#     try:
+#
+#     except:
+#         pass
 
 
     filename_noext = os.path.splitext(file.name)[0]

@@ -1,15 +1,18 @@
 from js import document, window, Uint8Array
 from pyodide.ffi.wrappers import add_event_listener
 
-import os
 from io import BytesIO
 
+import os
+import urllib
+import base64
 import zipfile
 
 app = document.getElementById("app")
 preloader = document.getElementById("preloader")
 font_file = document.getElementById("font-file")
 font_format = document.getElementById("font-format")
+font_preview = document.getElementById("font-preview")
 
 # https://pyscript.recipes/latest/basic/file-upload/
 async def get_file_data(file):
@@ -29,6 +32,16 @@ def save_file(name: str, data):
     link.click()
 
     window.URL.revokeObjectURL(blob)
+
+def render_preview(monobit, font):
+    writer = BytesIO()
+    monobit.save(font, writer, format="image")
+
+    b64_data = base64.b64encode(writer.getvalue())
+    data_url = "data:image/png;base64," + urllib.parse.quote(b64_data.decode('ascii'))
+
+    font_preview.setAttribute("src", data_url)
+    font_preview.hidden = False
 
 def mkzip_from_dir(dir_path):
     zip_buffer = BytesIO()
