@@ -1,0 +1,25 @@
+<head>
+<link rel="stylesheet" href="https://pyscript.net/releases/2026.3.1/core.css" />
+<script type="module" src="https://pyscript.net/releases/2026.3.1/core.js"></script>
+<link rel="stylesheet" type="text/css" href="css/drop-in.css">
+</head>
+<body>
+
+<div id="preloader">
+<h1>Loading...</h1>
+<p id="preloader-msg">Waiting for PyScript to start...</p>
+</div>
+
+<div id="app" hidden>
+<h1>Upload a font</h1>
+<input type="file" id="font-file" name="file"><br><br>
+
+<label>Format:</label>
+<select name="format" id="font-format">
+</select><br><br>
+<input type="button" id="font-convert-button" value="Convert">
+</div>
+
+
+<script type="py" config="py/config.json" src="py/main.py"></script>
+</body>

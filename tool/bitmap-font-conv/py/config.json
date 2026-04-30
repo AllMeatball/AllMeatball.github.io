@@ -1,0 +1,8 @@
+{
+    "packages": ["micropip"],
+    "files": {
+        "/py/load_libs.py": "load_libs.py",
+        "/py/frontend.py":  "frontend.py",
+        "/py/3rdparty/tempfile.py": "tempfile.py"
+    }
+}
