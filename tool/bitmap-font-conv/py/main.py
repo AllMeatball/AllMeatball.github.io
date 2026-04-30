@@ -54,8 +54,8 @@ async def start_conversion(event):
     with tempfile.TemporaryDirectory() as tmpdir:
         filename = None
         try:
-            filename = os.path.join(tmpdir, name_template.format(name=filename_noext))
-            monobit.save(font, filename, format=font_format)
+            filename = name_template.format(name=filename_noext)
+            monobit.save(font, os.path.join(tmpdir, filename), format=font_format)
         except Exception as e:
             window.alert(f"Failed to convert font: {e}")
             return
@@ -63,9 +63,8 @@ async def start_conversion(event):
         entry_count = len(os.listdir(tmpdir))
 
         if entry_count <= 1:
-            frontend.save_file(filename, open(filename, 'rb').read())
+            frontend.save_file(filename, open(os.path.join(tmpdir, filename), 'rb').read())
             return
 
         zip_io = frontend.mkzip_from_dir(tmpdir)
         frontend.save_file(f"{filename_noext}-{font_format}.zip", zip_io.getbuffer())
-
