@@ -23,12 +23,18 @@ for fmt in sorted(FONT_SAVERS.get_formats()):
 
 frontend.start_app(EXPORT_FORMATS)
 
-@when("change", "#font-file")
+@when("click", "#font-upload-button")
+def upload_font(event):
+    frontend.font_upload.click()
+
+@when("change", "#font-upload")
 async def update_font_preview(event):
-    frontend.font_preview.hidden = True
+    frontend.preview.hidden = True
 
     files = event.target.files
     file = files.item(0)
+
+    frontend.font_upload_name.textContent = file.name
 
     data: bytes = await frontend.get_file_data(file)
 
@@ -40,15 +46,20 @@ async def update_font_preview(event):
         window.alert(f"Font preview failed: {e}")
         return
 
-@when("click", "#font-convert-button")
+@when("click", "#preview")
+def show_preview(event):
+    target = event.target
+    window.open(target.src, '_blank')
+
+@when("click", "#convert-button")
 async def start_conversion(event):
-    files = frontend.font_file.files
+    files = frontend.font_upload.files
     file = files.item(0)
 
     font_format = "yaff"
 
-    if len(frontend.font_format.value) > 0:
-        font_format = str(frontend.font_format.value)
+    if len(frontend.export_format.value) > 0:
+        font_format = str(frontend.export_format.value)
 
     if is_none(file):
         window.alert("Please input a font file")

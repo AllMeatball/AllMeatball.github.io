@@ -1,32 +1,49 @@
+<!DOCTYPE html>
 <head>
 <title>Bitmap Font Converter</title>
-<link rel="stylesheet" type="text/css" href="css/drop-in.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
 <link rel="stylesheet" type="text/css" href="css/font-preview.css">
 
 <link rel="stylesheet" href="https://pyscript.net/releases/2026.3.1/core.css" />
 <script type="module" src="https://pyscript.net/releases/2026.3.1/core.js"></script>
+
 </head>
 <body>
 
 <h1>Bitmap Font Converter</h1>
 
 <div id="preloader">
-<h2>Loading...</h2>
+<h2 id="preloader-loading">Loading...</h2>
 <p id="preloader-msg">Waiting for PyScript to start...</p>
 </div>
 
+
 <div id="app" hidden>
-<h2>Upload a font</h2>
-<input type="file" id="font-file" name="file"><br><br>
 
-<label>Format:</label>
-<select name="format" id="font-format">
-</select><br><br>
-<input type="button" id="font-convert-button" value="Convert">
+<fieldset>
+    <legend>import</legend>
 
-<img hidden id="font-preview" alt="Preview">
+    <div>
+    <input hidden type="file" id="font-upload" name="file"></input>
+
+    <button id="font-upload-button">Choose file</button>
+    <span   id="font-upload-name">No file chosen</span>
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>export</legend>
+
+    <span>Format</span>
+    <select name="format" id="export-format"></select><br><br>
+    <button id="convert-button">Convert</button>
+</fieldset>
+
+<fieldset>
+    <legend>preview</legend>
+    <img hidden id="preview" alt="Preview">
+</fieldset>
 </div>
-
 
 <script type="py" config="py/config.json" src="py/main.py"></script>
 </body>

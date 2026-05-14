@@ -1,8 +1,9 @@
 {
     "packages": ["micropip"],
+    "plugins":  ["!error"],
     "files": {
-        "/tool/bitmap-font-conv/py/load_libs.py": "load_libs.py",
-        "/tool/bitmap-font-conv/py/frontend.py":  "frontend.py",
-        "/tool/bitmap-font-conv/py/3rdparty/tempfile.py": "tempfile.py"
+        "./load_libs.py": "load_libs.py",
+        "./frontend.py":  "frontend.py",
+        "./3rdparty/tempfile.py": "tempfile.py"
     }
 }

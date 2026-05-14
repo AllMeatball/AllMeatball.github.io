@@ -10,9 +10,13 @@ import zipfile
 
 app = document.getElementById("app")
 preloader = document.getElementById("preloader")
-font_file = document.getElementById("font-file")
-font_format = document.getElementById("font-format")
-font_preview = document.getElementById("font-preview")
+
+font_upload = document.getElementById("font-upload")
+export_format = document.getElementById("export-format")
+preview = document.getElementById("preview")
+
+font_upload_button = document.getElementById("font-upload-button")
+font_upload_name   = document.getElementById("font-upload-name")
 
 # https://pyscript.recipes/latest/basic/file-upload/
 async def get_file_data(file):
@@ -40,8 +44,8 @@ def render_preview(monobit, font):
     b64_data = base64.b64encode(writer.getvalue())
     data_url = "data:image/png;base64," + urllib.parse.quote(b64_data.decode('ascii'))
 
-    font_preview.setAttribute("src", data_url)
-    font_preview.hidden = False
+    preview.setAttribute("src", data_url)
+    preview.hidden = False
 
 def mkzip_from_dir(dir_path):
     zip_buffer = BytesIO()
@@ -64,9 +68,9 @@ def start_app(export_formats):
         option.setAttribute("value", raw_name)
         option.textContent = name
 
-        font_format.appendChild(option)
+        export_format.appendChild(option)
 
-    font_format.value = "yaff"
+    export_format.value = "yaff"
 
 def preload_print(text: str):
     msg = document.getElementById("preloader-msg")

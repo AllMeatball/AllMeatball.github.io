@@ -1,0 +1,118 @@
+/*
+ * Credit to https://github.com/tgies/klattsch for most of the CSS
+ *
+ * klattsch license notice:
+  MIT License
+
+  Copyright (c) 2026 Tony Gies
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+ */
+
+:root {
+  color-scheme: dark;
+  --bg: #141414;
+  --panel: #1d1d1d;
+  --widget: #262626;
+  --line: #333;
+  --fg: #d6d6d6;
+  --dim: #888;
+  --accent: #ff6a00;
+  --accent-dim: #f08080;
+  --accent-strong: #ff4500;
+
+  --font: ui-monospace, "Cascadia Code", "JetBrains Mono", Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--fg);
+  margin: 0 auto;
+  padding: 2rem;
+  max-width: 1280px;
+  line-height: 1.4;
+}
+
+h1 {
+  font-size: 2.2rem;
+  margin: 0;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+select {
+  background: var(--widget);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  padding: 0.2rem 0.2rem;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+button {
+  background: var(--widget);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  padding: 0.4rem 0.8rem;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+button:hover { border-color: var(--accent); color: #fff; }
+button:active { background: #1a1a1a; }
+
+
+fieldset {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  margin: 0.75rem 0;
+  padding: 0.9rem 1rem 1rem;
+  border-radius: 3px;
+}
+
+legend {
+  padding: 0 0.5rem;
+  color: var(--dim);
+  font-family: var(--font);
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 0.85rem;
+  text-transform: lowercase;
+  letter-spacing: 0.08em;
+}
+
+@keyframes ANIM_loading {
+  from {color: var(--accent-dim);}
+  to {color: var(--accent-strong);}
+}
+
+#preloader-loading {
+  color: var(--accent-strong);
+  animation: ANIM_loading 0.8s ease-in-out infinite;
+}
+
+button:hover { border-color: var(--accent); color: #fff; }
+button:active { background: #1a1a1a; }

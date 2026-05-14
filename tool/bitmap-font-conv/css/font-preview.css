@@ -3,7 +3,9 @@
  * Posted by Vargr, modified by community. See post 'Timeline' for change history
  * Retrieved 2026-04-30, License - CC BY-SA 4.0
  */
-#font-preview {
+#preview {
+    cursor: pointer;
+
     filter: none;
     image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
     image-rendering: -moz-crisp-edges;          /* Firefox                        */
