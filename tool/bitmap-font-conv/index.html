@@ -23,27 +23,35 @@
 <fieldset>
     <legend>import</legend>
 
+    <label for="import-format">format</label>
+    <select name="import-format" id="import-format"></select><br><br>
+
     <div>
     <input hidden type="file" id="font-upload" name="file"></input>
-
     <button id="font-upload-button">Choose file</button>
     <span   id="font-upload-name">No file chosen</span>
     </div>
+
 </fieldset>
 
 <fieldset>
     <legend>export</legend>
 
-    <span>Format</span>
-    <select name="format" id="export-format"></select><br><br>
+    <label for="export-format">format</label>
+    <select name="export-format" id="export-format"></select><br><br>
     <button id="convert-button">Convert</button>
 </fieldset>
 
 <fieldset>
     <legend>preview</legend>
-    <img hidden id="preview" alt="Preview">
+    <img hidden id="preview" title="Click to preview image" alt="Preview">
 </fieldset>
 </div>
 
 <script type="py" config="py/config.json" src="py/main.py"></script>
+
+<div class="footer">
+    <a href="https://github.com/robhagemans/monobit" target="_blank">monobit (under MIT)</a> <span>- Copyright (c) 2019--2023 Rob Hagemans</span><br>
+    <a href="https://github.com/tgies/klattsch/blob/10814befa782a485fd5c19cefe5f534d3635b321/src/style.css" target="_blank">klattsch style.css (under MIT)</a> <span>- Copyright (c) 2026 Tony Gies<span>
+</div>
 </body>

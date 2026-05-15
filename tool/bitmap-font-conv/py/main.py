@@ -13,15 +13,26 @@ import monobit
 import frontend
 
 FONT_SAVERS = monobit.storage.savers
+FONT_LOADERS = monobit.storage.loaders
 
 EXPORT_FORMATS = {}
+IMPORT_FORMATS = {'!auto': 'Auto'}
+
 for fmt in sorted(FONT_SAVERS.get_formats()):
     file_ext = FONT_SAVERS.get_template(fmt)
     file_ext = re.sub(r'\{.*?\}', '*', file_ext)
 
     EXPORT_FORMATS[fmt] = f"{fmt} ({file_ext})"
 
-frontend.start_app(EXPORT_FORMATS)
+
+for fmt in sorted(FONT_LOADERS.get_formats()):
+    file_ext = FONT_LOADERS.get_template(fmt)
+    file_ext = re.sub(r'\{.*?\}', '*', file_ext)
+
+    IMPORT_FORMATS[fmt] = f"{fmt} ({file_ext})"
+
+
+frontend.start_app(IMPORT_FORMATS, EXPORT_FORMATS)
 
 @when("click", "#font-upload-button")
 def upload_font(event):
@@ -29,18 +40,28 @@ def upload_font(event):
 
 @when("change", "#font-upload")
 async def update_font_preview(event):
-    frontend.preview.hidden = True
-
     files = event.target.files
+    if files.length <= 0:
+        return
+
     file = files.item(0)
 
+    frontend.preview.hidden = True
     frontend.font_upload_name.textContent = file.name
 
     data: bytes = await frontend.get_file_data(file)
 
+    font_format = "!auto"
+
+    if len(frontend.import_format.value) > 0:
+        font_format = str(frontend.import_format.value)
+
+    if font_format == "!auto":
+        font_format = ""
+
     try:
         reader = BufferedReader(BytesIO(data))
-        font = monobit.load(reader)
+        font = monobit.load(reader, format=font_format)
         frontend.render_preview(monobit, font)
     except Exception as e:
         window.alert(f"Font preview failed: {e}")

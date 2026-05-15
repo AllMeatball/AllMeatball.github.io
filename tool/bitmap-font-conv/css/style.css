@@ -85,6 +85,23 @@ button:hover { border-color: var(--accent); color: #fff; }
 button:active { background: #1a1a1a; }
 
 
+label, span { display: inline-block; color: var(--dim); }
+
+select {
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 0.2rem 0.4rem;
+  font: inherit;
+  font-size: 0.85rem;
+}
+
+select:focus {
+  outline: 1px solid var(--accent);
+  border-color: var(--accent);
+}
+
 fieldset {
   border: 1px solid var(--line);
   background: var(--panel);
@@ -104,6 +121,20 @@ legend {
   letter-spacing: 0.08em;
 }
 
+button:hover { border-color: var(--accent); color: #fff; }
+button:active { background: #1a1a1a; }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+a:hover {
+  border-bottom-color: var(--accent);
+}
+
+/* site specific styling */
 @keyframes ANIM_loading {
   from {color: var(--accent-dim);}
   to {color: var(--accent-strong);}
@@ -114,5 +145,14 @@ legend {
   animation: ANIM_loading 0.8s ease-in-out infinite;
 }
 
-button:hover { border-color: var(--accent); color: #fff; }
-button:active { background: #1a1a1a; }
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0rem;
+  padding-bottom: 0.5rem;
+  width: 100%;
+  font-size: 0.85rem;
+  color: var(--dim);
+  background-color: var(--bg);
+  text-align: center;
+}
