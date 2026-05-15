@@ -44,6 +44,8 @@ async def update_font_preview(event):
     if files.length <= 0:
         return
 
+    import_format = frontend.get_import_format()
+
     file = files.item(0)
 
     frontend.preview.hidden = True
@@ -51,17 +53,9 @@ async def update_font_preview(event):
 
     data: bytes = await frontend.get_file_data(file)
 
-    font_format = "!auto"
-
-    if len(frontend.import_format.value) > 0:
-        font_format = str(frontend.import_format.value)
-
-    if font_format == "!auto":
-        font_format = ""
-
     try:
         reader = BufferedReader(BytesIO(data))
-        font = monobit.load(reader, format=font_format)
+        font = monobit.load(reader, format=import_format)
         frontend.render_preview(monobit, font)
     except Exception as e:
         window.alert(f"Font preview failed: {e}")
@@ -77,10 +71,8 @@ async def start_conversion(event):
     files = frontend.font_upload.files
     file = files.item(0)
 
-    font_format = "yaff"
-
-    if len(frontend.export_format.value) > 0:
-        font_format = str(frontend.export_format.value)
+    import_format = frontend.get_import_format()
+    export_format = frontend.get_export_format()
 
     if is_none(file):
         window.alert("Please input a font file")
@@ -90,25 +82,19 @@ async def start_conversion(event):
 
     try:
         reader = BufferedReader(BytesIO(data))
-        font = monobit.load(reader)
+        font = monobit.load(reader, format=import_format)
     except Exception as e:
         window.alert(f"Failed to load font: {e}")
         return
 
-#     try:
-#
-#     except:
-#         pass
-
-
     filename_noext = os.path.splitext(file.name)[0]
-    name_template = FONT_SAVERS.get_template(font_format)
+    name_template = FONT_SAVERS.get_template(export_format)
 
     with tempfile.TemporaryDirectory() as tmpdir:
         filename = None
         try:
             filename = name_template.format(name=filename_noext)
-            monobit.save(font, os.path.join(tmpdir, filename), format=font_format)
+            monobit.save(font, os.path.join(tmpdir, filename), format=export_format)
         except Exception as e:
             window.alert(f"Failed to convert font: {e}")
             return
@@ -120,4 +106,4 @@ async def start_conversion(event):
             return
 
         zip_io = frontend.mkzip_from_dir(tmpdir)
-        frontend.save_file(f"{filename_noext}-{font_format}.zip", zip_io.getbuffer())
+        frontend.save_file(f"{filename_noext}-{export_format}.zip", zip_io.getbuffer())

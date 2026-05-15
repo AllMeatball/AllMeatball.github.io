@@ -25,6 +25,25 @@ async def get_file_data(file):
     array_buf = await file.arrayBuffer()
     return array_buf.to_bytes()
 
+def get_import_format():
+    font_format = "!auto"
+
+    if len(import_format.value) > 0:
+        font_format = str(import_format.value)
+
+    if font_format == "!auto":
+        font_format = ""
+
+    return font_format
+
+def get_export_format():
+    font_format = "yaff"
+
+    if len(export_format.value) > 0:
+        font_format = str(export_format.value)
+
+    return font_format
+
 def save_file(name: str, data):
     js_data = Uint8Array.new(len(data))
     js_data.assign(data)
