@@ -145,6 +145,10 @@ a:hover {
   animation: ANIM_loading 0.8s ease-in-out infinite;
 }
 
+#tagline {
+  color: var(--dim);
+}
+
 .footer {
   position: fixed;
   left: 0;
